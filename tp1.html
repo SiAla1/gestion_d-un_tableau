@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+    <title></title>
+</head>
+
+<body>
+
+    <div id="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Label</th>
+                    <th>Price</th>
+                    <th>Suppliers</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody id="mytbody">
+
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    var Products = [
+        {
+            id: 1,
+            Code: '00001',
+            Label: 'Product 1',
+            Price: '5000',
+            Suppliers: ['Supplier 1', 'Supplier 4', 'Supplier 6']
+        },
+        {
+            id: 2,
+            Code: '00002',
+            Label: 'Product 2',
+            Price: '4000',
+            Suppliers: ['Supplier 2', 'Supplier 4']
+        },
+        {
+            id: 3,
+            Code: '00003',
+            Label: 'Product 2',
+            Price: '3000',
+            Suppliers: ['Supplier 3']
+        },
+        {
+            id: 4,
+            Code: '00004',
+            Label: 'Product 3',
+            Price: '10000',
+            Suppliers: ['Supplier 3', 'Supplier 4', 'Supplier 5']
+        },
+        {
+            id: 5,
+            Code: '00005',
+            Label: 'Product 4',
+            Price: '1000',
+            Suppliers: []
+        }
+
+    ];
+
+
+    function supprimer(e) { // PointerEvent
+        console.log('hi !' + e.target.parentElement);
+        console.log('hi! tr#' + e.target.parentElement.parentElement.getAttribute("id"));
+        tbody.removeChild(document.getElementById(e.target.parentElement.parentElement.getAttribute("id")));
+        console.log('bay bay! tr#' + e.target.parentElement.parentElement.getAttribute("id"));
+        Products = Products.filter(cell => cell.id != e.target.parentElement.parentElement.getAttribute("id"));
+        console.table(Products);
+
+    }
+
+
+    for (let i = 0; i < Products.length; i++) {
+        var tr = document.createElement('tr');
+        tr.setAttribute("id", Products[i].id);
+
+        var td1 = tr.appendChild(document.createElement('td'));
+        var td2 = tr.appendChild(document.createElement('td'));
+        var td3 = tr.appendChild(document.createElement('td'));
+        var td4 = tr.appendChild(document.createElement('td'));
+        var ul = td4.appendChild(document.createElement('ul'));
+        var td5 = tr.appendChild(document.createElement('td'));
+
+        td1.innerHTML = Products[i].Code;
+        td2.innerHTML = Products[i].Label;
+        td3.innerHTML = Products[i].Price;
+
+        for (let j = 0; j < Products[i].Suppliers.length; j++) {
+            var li = ul.appendChild(document.createElement('li'));
+            li.innerHTML = Products[i].Suppliers[j];
+            console.log(li);
+        }
+
+        var Button = td5.appendChild(document.createElement('BUTTON'));
+        Button.onclick = supprimer;
+        Button.innerHTML = "supp";
+
+        console.log(tr);
+
+        var tbody = document.getElementById("mytbody");
+        tbody.appendChild(tr);
+
+
+    }
+</script>
+
+</html>
